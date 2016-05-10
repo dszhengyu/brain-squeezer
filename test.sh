@@ -23,7 +23,7 @@ squeezer_test_in="${squeezer}.test-input.*"
 squeezer_test_out_base="${squeezer}.test-output."
 
 echo -e "\033[31mStart Compiling\033[0m"
-${CXX} -o $squeezer $squeezer_file ${CXXFLAGS}
+${CXX} -o "${squeezer}.output" $squeezer_file ${CXXFLAGS}
 if [ $? -ne 0 ]; then
     echo -e "\033[31mCompile Fail\033[0m"
     exit 1
@@ -42,7 +42,7 @@ do
         echo -e "\033[31m   detail: $test_in exist, but $test_out no exist\033[0m"
         if [ -e $tmp_file ]; then
             rm $tmp_file
-        if
+        fi 
         exit 1;
     fi
 
