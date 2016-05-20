@@ -18,12 +18,13 @@ CXX=g++
 tmp_file='tmp.tmp'
 
 squeezer=`cat current-squeezer.name`
+squeezer_target="${squeezer}.output"
 squeezer_file="${squeezer}.cpp"
 squeezer_test_in="${squeezer}.test-input.*"
 squeezer_test_out_base="${squeezer}.test-output."
 
 echo -e "\033[31mStart Compiling\033[0m"
-${CXX} -o "${squeezer}.output" $squeezer_file ${CXXFLAGS}
+${CXX} -o $squeezer_target $squeezer_file ${CXXFLAGS}
 if [ $? -ne 0 ]; then
     echo -e "\033[31mCompile Fail\033[0m"
     exit 1
@@ -35,7 +36,7 @@ test_in_set=`ls $squeezer_test_in`
 
 for test_in in $test_in_set
 do
-    test_number=${test_in_set##*.}
+    test_number=${test_in##*.}
     test_out="${squeezer_test_out_base}${test_number}"
     if [ ! -e "$test_out" ]; then
         echo -e "\033[31mTest Error\033[0m"
@@ -47,7 +48,7 @@ do
     fi
 
     echo -e "\033[31m   running No.${test_number} test case \033[0m"
-    `./$squeezer < $test_in > $tmp_file `
+    `./$squeezer_target < $test_in > $tmp_file `
     diff $test_out $tmp_file > /dev/null
     if [ $? -ne 0 ]; then
         echo -e "\n\033[31mTest Error\033[0m"
