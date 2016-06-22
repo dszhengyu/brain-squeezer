@@ -16,16 +16,31 @@ int main()
 /************************************ Let's Start ********************************************/
 
 bool isMatch(string s, string p) {
-    if (p.empty()) {
-        return s.empty();
+    int m = s.size();
+    int n = p.size();
+    vector<vector<bool>> result(m + 1, vector<bool>(n + 1, false));
+    result[0][0] = true;
+
+    for (int i = 1; i <= m; ++i) {
+        result[i][0] = false;
     }
 
-    if (p[1] == '*') {
-        return isMatch(s, p.substr(2)) || !s.empty() && (s[0] == p[0] || p[0] == '.') && isMatch(s.substr(1), p);
+    for (int j = 2; j <= n; ++j) {
+        result[0][j] = ('*' == p[j - 1]) && result[0][j - 2]; 
     }
-    else {
-        return !s.empty() && (s[0] == p[0] || p[0] == '.') && isMatch(s.substr(1), p.substr(1));
+
+    for (int i = 1; i <= m; ++i) {
+        for (int j = 1; j <= n; ++j) {
+            if ('*' == p[j - 1]) {
+                result[i][j] = result[i][j - 2] || (s[i - 1] == p[j - 2] || '.' == p[j - 2]) && result[i - 1][j];
+            }
+            else {
+                result[i][j] = result[i - 1][j - 1] && (s[i - 1] == p [j - 1]) || ('.' == p[j - 1]);
+            }
+        }
     }
+
+    return result[m][n];
 }
 
 void solution(istream &in, ostream &out) {
