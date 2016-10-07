@@ -4,18 +4,12 @@
 #include <vector>
 #include <algorithm>
 #include <stack>
+#include <list>
 
 using namespace std;
 
-void solution(istream &in, ostream &out);
 
 int main()
 {
-    solution(cin, cout); 
-}
-
-/************************************ Let's Start ********************************************/
-
-void solution(istream &in, ostream &out) {
 
 }
