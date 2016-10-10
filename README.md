@@ -5,7 +5,7 @@ online judge problem which would squeeze my brain
 1. when a new squeezer comes    
 ./setup new-squeezer-name    
 this would set up the environment for the new-squeezer,    
-including new-squeezer-name.cpp, new-squeezer-name.test-input.1 new-squeezer-name.test-output.1    
+including new-squeezer-name.cpp, new-squeezer-name.input-test.1 new-squeezer-name.output-test.1    
 
 2. code complete    
 ./test    

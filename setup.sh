@@ -9,8 +9,8 @@ fi
 name_record_file="current-squeezer.name"
 squeezer=$1
 squeezer_file="${squeezer}.cpp"
-squeezer_test_in="${squeezer}.test-input.1"
-squeezer_test_out="${squeezer}.test-output.1"
+squeezer_test_in="${squeezer}.input-test.1"
+squeezer_test_out="${squeezer}.output-test.1"
 echo $squeezer > $name_record_file
 
 template_file="template.cpp"

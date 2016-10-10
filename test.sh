@@ -13,15 +13,15 @@ function end_pending() {
     done
 }
 
-CXXFLAGS=" -std=c++11 -Wall -fPIC"
+CXXFLAGS=" -std=c++0x -Wall -fPIC"
 CXX=g++
 tmp_file='tmp.tmp'
 
 squeezer=`cat current-squeezer.name`
-squeezer_target="${squeezer}.output"
+squeezer_target="${squeezer}.e"
 squeezer_file="${squeezer}.cpp"
-squeezer_test_in="${squeezer}.test-input.*"
-squeezer_test_out_base="${squeezer}.test-output."
+squeezer_test_in="${squeezer}.input-test.*"
+squeezer_test_out_base="${squeezer}.output-test."
 
 echo -e "\033[31mStart Compiling\033[0m"
 ${CXX} -o $squeezer_target $squeezer_file ${CXXFLAGS}
