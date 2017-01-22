@@ -17,60 +17,53 @@ int main()
     cout << minDistance(w1, w2) << endl;
 }
 
+void output(string word1, string word2, vector<vector<int>> dp) {
+    int w1Len = word1.length();
+    int w2Len = word2.length();
+    cout << "  ";
+    for (int j = 0; j < w1Len; ++j) {
+        cout << word1[j] << " ";
+    }
+    cout << endl;
+
+    for (int i = 0; i < w2Len; ++i) {
+        cout << word2[i] << " ";
+        for (int j = 0; j < w1Len; ++j) {
+            cout << dp[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
+
 int minDistance(string word1, string word2) {
     int w1Len = word1.length();
     int w2Len = word2.length();
-    vector<vector<int>> dp(w2Len + 1, vector<int>(w1Len + 1, w1Len + w2Len));
-    vector<bool> hasZeroCol(w1Len + 1, false);
-    
-    for (int i = 0; i < w2Len; ++i) {
-        bool hasZero = false;
+    if ((w1Len == 0) || (w2Len == 0)) {
+        return w1Len + w2Len;
+    }
+
+    vector<int> dp(w1Len + 1, 0);
+    for (int j = 0; j <= w1Len; ++j) {
+        dp[j] = j;
+    }
+
+    for (int i = 1; i <= w2Len; ++i) {
+        int prev = dp[0];
+        dp[0] = i;
         for (int j = 0; j < w1Len; ++j) {
-            if (hasZero || hasZeroCol[j]) {
-                dp[i][j] = 1;
-                continue;
-            }
-            if (word1[j] == word2[i]) {
-                dp[i][j] = 0;
-                hasZero = true;
-                hasZeroCol[j] = true;
+            int tmp = dp[j + 1];
+            if (word2[i - 1] == word1[j]) {
+                dp[j + 1] = prev;
             }
             else {
-                dp[i][j] = 1;
+                dp[j + 1] = (1 + min(dp[j + 1], min(prev, dp[j])));
             }
+            prev = tmp;
         }
     }
 
-    //cout << "mark zero" << endl;
-    //for (int i = 0; i <= w2Len; ++i) {
-    //    for (int j = 0; j <= w1Len; ++j) {
-    //        printf("%2d ", dp[i][j]);
-    //    }
-    //    cout << endl;
-    //}
+    return dp[w1Len];
 
-    for (int i = (w2Len - 1); i >= 0; --i) {
-        for (int j = (w1Len - 1); j >= 0; --j) {
-            if ((i == (w2Len - 1)) && (j == (w1Len - 1))) {
-                continue;
-            }
-            if (dp[i][j] == 0) {
-                dp[i][j] += min(dp[i + 1][j], min(dp[i][j + 1], dp[i + 1][j + 1]));
-            }
-            else {
-                dp[i][j] += min(dp[i][j + 1], dp[i + 1][j]);
-            }
-        }
-    }
-
-    //cout << "sum" << endl;
-    //for (int i = 0; i <= w2Len; ++i) {
-    //    for (int j = 0; j <= w1Len; ++j) {
-    //        printf("%2d ", dp[i][j]);
-    //    }
-    //    cout << endl;
-    //}
-
-    //cout << "result" << endl;
-    return dp[0][0];
 }
+

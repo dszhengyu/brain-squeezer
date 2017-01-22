@@ -59,10 +59,9 @@ do
         more $test_out
         echo -e "  while executing result is:"
         more $tmp_file
-        rm $tmp_file
-        exit 1;
+    else
+        echo -e "\033[31m   AC No.${test_number} test case \033[0m"
     fi
-    echo -e "\033[31m   AC No.${test_number} test case \033[0m"
 done
 rm $tmp_file
 echo -e "\033[31mTest Complete!\033[0m"
